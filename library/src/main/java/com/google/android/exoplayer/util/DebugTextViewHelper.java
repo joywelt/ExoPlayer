@@ -88,7 +88,7 @@ public final class DebugTextViewHelper implements Runnable {
 
   @Override
   public void run() {
-    textView.setText(getRenderString());
+//    textView.setText(getRenderString());
     textView.postDelayed(this, REFRESH_INTERVAL_MS);
   }
 

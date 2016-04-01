@@ -99,6 +99,7 @@
           android:layout_height="wrap_content"
           android:text="@string/logging"
           style="@style/DemoButton"
+          android:visibility="gone"
           android:onClick="showVerboseLogPopup"/>
 
       <Button android:id="@+id/retry_button"

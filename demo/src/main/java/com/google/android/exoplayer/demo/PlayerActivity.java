@@ -174,7 +174,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
         surfaceView.getHolder().addCallback(this);
         debugTextView = (TextView) findViewById(R.id.debug_text_view);
 
-        playerStateTextView = (TextView) findViewById(R.id.player_state_view);
+//        playerStateTextView = (TextView) findViewById(R.id.player_state_view);
         subtitleLayout = (SubtitleLayout) findViewById(R.id.subtitles);
 
         mediaController = new KeyCompatibleMediaController(this);
@@ -397,7 +397,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
                 text += "unknown";
                 break;
         }
-        playerStateTextView.setText(text);
+//        playerStateTextView.setText(text);
         updateButtonVisibilities();
     }
 
@@ -450,9 +450,11 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
 
     private void updateButtonVisibilities() {
         retryButton.setVisibility(playerNeedsPrepare ? View.VISIBLE : View.GONE);
-        videoButton.setVisibility(haveTracks(DemoPlayer.TYPE_VIDEO) ? View.VISIBLE : View.GONE);
+//        videoButton.setVisibility(haveTracks(DemoPlayer.TYPE_VIDEO) ? View.VISIBLE : View.GONE);
+        videoButton.setVisibility(View.GONE);
         audioButton.setVisibility(haveTracks(DemoPlayer.TYPE_AUDIO) ? View.VISIBLE : View.GONE);
-        textButton.setVisibility(haveTracks(DemoPlayer.TYPE_TEXT) ? View.VISIBLE : View.GONE);
+//        textButton.setVisibility(haveTracks(DemoPlayer.TYPE_TEXT) ? View.VISIBLE : View.GONE);
+        textButton.setVisibility(View.GONE);
     }
 
     private boolean haveTracks(int type) {
@@ -765,7 +767,8 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
             try {
                 // instantiate the URL object with the target URL of the resource to
                 // request
-                URL url = new URL("http://localhost:8080/test.php");//http://localhost:8080/test.php");
+//                URL url = new URL("http://localhost:8080/Route_Receiver/Receiver/index.php");
+                URL url = new URL("http://localhost:8080/test.php");
 
                 // instantiate the HttpURLConnection with the URL object - A new
                 // connection is opened every time by calling the openConnection
