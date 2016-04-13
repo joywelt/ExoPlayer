@@ -29,7 +29,7 @@
       android:largeHeap="true"
       android:allowBackup="false">
 
-    <activity android:name="com.google.android.exoplayer.demo.SampleChooserActivity"
+    <activity android:name=".SampleChooserActivity"
         android:configChanges="keyboardHidden"
         android:label="@string/application_name">
       <intent-filter>
@@ -38,7 +38,7 @@
       </intent-filter>
     </activity>
 
-    <activity android:name="com.google.android.exoplayer.demo.PlayerActivity"
+    <activity android:name=".PlayerActivity"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:launchMode="singleInstance"
         android:label="@string/application_name"
@@ -53,6 +53,14 @@
         <data android:scheme="file"/>
       </intent-filter>
     </activity>
+
+      <activity
+          android:name=".AddPreference"
+          android:label="@string/preference" >
+          <intent-filter>
+              <category android:name="android.intent.category.DEFAULT"/>
+          </intent-filter>
+      </activity>
 
   </application>
 

@@ -53,4 +53,6 @@
 
   <string name="storage_permission_denied">Permission to access storage was denied</string>
 
+  <string name="preference">Settings</string>
+
 </resources>

@@ -94,6 +94,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
     public static final String CONTENT_ID_EXTRA = "content_id";
     public static final String CONTENT_TYPE_EXTRA = "content_type";
     public static final String PROVIDER_EXTRA = "provider";
+    public static final String CHANNEL_NUM = "channel_num";
 
     // For use when launching the demo app using adb.
     private static final String CONTENT_EXT_EXTRA = "type";
@@ -229,6 +230,11 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
             player.setBackgrounded(true);
         }
         shutterView.setVisibility(View.VISIBLE);
+        try {
+            String str_result = new MyAsyncTask().execute("http://localhost:8080/Route_Receiver/Receiver_App/Cleanup.php", "", "").get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -236,6 +242,11 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
         super.onDestroy();
         audioCapabilitiesReceiver.unregister();
         releasePlayer();
+        try {
+            String str_result = new MyAsyncTask().execute("http://localhost:8080/Route_Receiver/Receiver_App/Cleanup.php", "", "").get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // OnClickListener methods
@@ -325,7 +336,9 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
 
         try {
             Toast.makeText(getApplicationContext(), "Please wait...", Toast.LENGTH_LONG).show();
-            String str_result= new MyAsyncTask().execute("test").get();
+            Intent intent = getIntent();
+            String channnel_num = intent.getStringExtra(CHANNEL_NUM);
+            String str_result= new MyAsyncTask().execute("http://localhost:8080/Route_Receiver/Receiver_App/Process.php", "channel", channnel_num).get();
             Toast.makeText(getApplicationContext(), "Result is: " + str_result, Toast.LENGTH_LONG).show();
         }catch (Exception e) {
             e.printStackTrace();
@@ -739,7 +752,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
         }
     }
 
-    private class MyAsyncTask extends AsyncTask<String, Integer, String>{
+    public class MyAsyncTask extends AsyncTask<String, Integer, String>{
 
         protected void onPreExecute(){
             //before execute
@@ -758,38 +771,41 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
 //          e.printStackTrace();
 //        }
 //      }
-            return postData(params[0]);
+            return postData(params[0],params[1],params[2]);
         }
 
-        public String postData(String valueIWantToSend) {
+        public String postData(String urlstr, String keyname, String keyvalue) {
 
             String result = null;
             try {
                 // instantiate the URL object with the target URL of the resource to
                 // request
 //                URL url = new URL("http://localhost:8080/Route_Receiver/Receiver/index.php");
-                URL url = new URL("http://localhost:8080/test.php");
+//                URL url = new URL("http://localhost:8080/Route_Receiver/Receiver_App/Process.php");
+                URL url = new URL(urlstr);
 
                 // instantiate the HttpURLConnection with the URL object - A new
                 // connection is opened every time by calling the openConnection
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 // set connection output to true
                 connection.setDoOutput(true);
-                // send message using method="GET"
-                connection.setRequestMethod("GET");
+                // send message using method="POST"
+                connection.setRequestMethod("POST");
 
                 // instantiate OutputStreamWriter using the output stream, returned
                 // from getOutputStream, that writes to this connection.
                 // If an I/O error occurs while creating the output stream,
                 // you'll see an IOException.
-                OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-                // write data to the connection. This is data that you are sending to the server
-                String message = URLEncoder.encode(valueIWantToSend, "UTF-8");
-                writer.write("message=" + message);
+                if (keyname != null) {
+                    OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+                    // write data to the connection. This is data that you are sending to the server
+                    String message = URLEncoder.encode(keyvalue, "UTF-8");
+                    writer.write(keyname + "=" + message);
 
-                // Closes this output stream and releases any system resources
-                // associated with this stream.
-                writer.close();
+                    // Closes this output stream and releases any system resources
+                    // associated with this stream.
+                    writer.close();
+                }
 
                 if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     // if there is a response code AND that response code is 200 OK

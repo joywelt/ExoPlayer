@@ -48,16 +48,23 @@ import java.util.Locale;
 
     public static final Sample[] test = new Sample[] {
             new Sample("channel1",
-                    "http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?"
-                            + "as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&"
-                            + "ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7."
-                            + "8506521BFC350652163895D4C26DEE124209AA9E&key=ik0", Util.TYPE_DASH),
+                    "http://localhost:8080/Route_Receiver/Receiver_App/DASH_Content1/MultiRate_Dynamic_Patched.mpd", Util.TYPE_DASH),
             new Sample("channel2",
-                    "http://www.youtube.com/api/manifest/dash/id/3aa39fa2cc27967f/source/youtube?"
-                            + "as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&"
-                            + "ipbits=0&expire=19000000000&signature=A2716F75795F5D2AF0E88962FFCD10DB79384F29."
-                            + "84308FF04844498CE6FBCE4731507882B8307798&key=ik0", Util.TYPE_DASH),
+                    "http://localhost:8080/Route_Receiver/Receiver_App/DASH_Content2/MultiRate_Dynamic_Patched.mpd", Util.TYPE_DASH),
     };
+
+//    public static final Sample[] test = new Sample[] {
+//            new Sample("channel1",
+//                    "http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?"
+//                            + "as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&"
+//                            + "ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7."
+//                            + "8506521BFC350652163895D4C26DEE124209AA9E&key=ik0", Util.TYPE_DASH),
+//            new Sample("channel2",
+//                    "http://www.youtube.com/api/manifest/dash/id/3aa39fa2cc27967f/source/youtube?"
+//                            + "as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&"
+//                            + "ipbits=0&expire=19000000000&signature=A2716F75795F5D2AF0E88962FFCD10DB79384F29."
+//                            + "84308FF04844498CE6FBCE4731507882B8307798&key=ik0", Util.TYPE_DASH),
+//    };
 
 //  public static final Sample[] YOUTUBE_DASH_MP4 = new Sample[] {
 //    new Sample("Google Glass (MP4,H264)",

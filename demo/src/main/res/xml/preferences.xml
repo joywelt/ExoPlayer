@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference android:title="Sender IP"
+        android:id="@+id/ip"
+        android:key="senderIP"
+        android:summary="Please provide the sender IP" />
+    <SwitchPreference android:title="Unicast"
+        android:id="@+id/adcast"
+        android:defaultValue="false"
+        android:summary="This option if selected will allow display the inserted Ad with Unicast, otherwise Broadcast."
+        android:key="unicastEnabled" />
+</PreferenceScreen>
