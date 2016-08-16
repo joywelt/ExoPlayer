@@ -68,7 +68,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:gravity="center">
 
       <Button android:id="@+id/video_controls"
           android:layout_width="wrap_content"
@@ -99,6 +100,7 @@
           android:layout_height="wrap_content"
           android:text="@string/logging"
           style="@style/DemoButton"
+          android:visibility="gone"
           android:onClick="showVerboseLogPopup"/>
 
       <Button android:id="@+id/retry_button"
@@ -107,6 +109,20 @@
           android:text="@string/retry"
           android:visibility="gone"
           style="@style/DemoButton"/>
+
+      <Button android:id="@+id/slow_button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="left"
+          android:background="@drawable/slowbutton"
+          android:onClick="gotoSlowMode"/>
+
+      <Button android:id="@+id/normal_button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="right"
+          android:background="@drawable/normalbutton"
+          android:onClick="gotoNormalMode"/>
 
     </LinearLayout>
 

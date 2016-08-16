@@ -116,6 +116,8 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
   private Button audioButton;
   private Button textButton;
   private Button retryButton;
+  private Button slowButton;
+  private Button normalButton;
 
   private DemoPlayer player;
   private DebugTextViewHelper debugViewHelper;
@@ -179,6 +181,9 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
     videoButton = (Button) findViewById(R.id.video_controls);
     audioButton = (Button) findViewById(R.id.audio_controls);
     textButton = (Button) findViewById(R.id.text_controls);
+
+    slowButton = (Button) findViewById(R.id.slow_button);
+    normalButton = (Button) findViewById(R.id.normal_button);
 
     CookieHandler currentHandler = CookieHandler.getDefault();
     if (currentHandler != defaultCookieManager) {
@@ -411,7 +416,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
         text += "unknown";
         break;
     }
-    playerStateTextView.setText(text);
+//    playerStateTextView.setText(text);
     updateButtonVisibilities();
   }
 
@@ -463,14 +468,36 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
   // User controls
 
   private void updateButtonVisibilities() {
-    retryButton.setVisibility(playerNeedsPrepare ? View.VISIBLE : View.GONE);
-    videoButton.setVisibility(haveTracks(DemoPlayer.TYPE_VIDEO) ? View.VISIBLE : View.GONE);
-    audioButton.setVisibility(haveTracks(DemoPlayer.TYPE_AUDIO) ? View.VISIBLE : View.GONE);
-    textButton.setVisibility(haveTracks(DemoPlayer.TYPE_TEXT) ? View.VISIBLE : View.GONE);
+//    retryButton.setVisibility(playerNeedsPrepare ? View.VISIBLE : View.GONE);
+//    videoButton.setVisibility(haveTracks(DemoPlayer.TYPE_VIDEO) ? View.VISIBLE : View.GONE);
+//    audioButton.setVisibility(haveTracks(DemoPlayer.TYPE_AUDIO) ? View.VISIBLE : View.GONE);
+//    textButton.setVisibility(haveTracks(DemoPlayer.TYPE_TEXT) ? View.VISIBLE : View.GONE);
   }
 
   private boolean haveTracks(int type) {
     return player != null && player.getTrackCount(type) > 0;
+  }
+
+  /** Called when the user touches the button */
+  public void gotoSlowMode(View v) {
+    //if in normal mode, fast backward 5s and switch to slow mode
+    int track_index = player.getSelectedTrack(DemoPlayer.TYPE_VIDEO);
+    int track_count = player.getTrackCount(DemoPlayer.TYPE_VIDEO);
+    if (track_index < track_count/2) {
+      //select the next "auto" (adaptive) entry
+      player.setSelectedTrack(DemoPlayer.TYPE_VIDEO, track_count/2);
+      player.seekTo(player.getCurrentPosition() - 10000); // milliseconds
+    }
+  }
+
+  public void gotoNormalMode(View v) {
+    //if in slow mode, switch to normal mode
+    int track_index = player.getSelectedTrack(DemoPlayer.TYPE_VIDEO);
+    int track_count = player.getTrackCount(DemoPlayer.TYPE_VIDEO);
+    if (track_index >= track_count/2) {
+      //select the previous "auto" (adaptive) entry
+      player.setSelectedTrack(DemoPlayer.TYPE_VIDEO, 0);
+    }
   }
 
   public void showVideoPopup(View v) {
@@ -759,6 +786,29 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
       }
       return super.dispatchKeyEvent(event);
     }
-  }
 
+//    @Override
+//    public boolean dispatchKeyEvent(KeyEvent event) {
+//      int keyCode = event.getKeyCode();
+//      if (playerControl.canSeekForward() && keyCode == KeyEvent.KEYCODE_MEDIA_FAST_FORWARD
+//              || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+//        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+//          //if in slow mode, switch to normal mode
+////          player.setSelectedTrack();
+//          show();
+//        }
+//        return true;
+//      } else if (playerControl.canSeekBackward() && (keyCode == KeyEvent.KEYCODE_MEDIA_REWIND
+//              || keyCode == KeyEvent.KEYCODE_DPAD_LEFT)) {
+//        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+//          //if in normal mode, switch to slow mode and fast backward 5s
+//          playerControl.seekTo(playerControl.getCurrentPosition() - 5000); // milliseconds
+//          show();
+//        }
+//        return true;
+//      }
+//      return super.dispatchKeyEvent(event);
+//    }
+
+  }
 }

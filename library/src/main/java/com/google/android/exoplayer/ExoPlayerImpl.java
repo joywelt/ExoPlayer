@@ -21,6 +21,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -109,8 +110,30 @@ import java.util.concurrent.CopyOnWriteArraySet;
   @Override
   public void setSelectedTrack(int rendererIndex, int trackIndex) {
     if (selectedTrackIndices[rendererIndex] != trackIndex) {
+      double ratio = 1;
+      int count = getTrackCount(rendererIndex);
+      ArrayList<Integer> adaptlist = new ArrayList<Integer>();// store the first index for every adaptation set (auto entry)
+      for (int i = 0; i< count; i++) {
+        if (trackFormats[rendererIndex][i].trackId == null)
+        {
+          adaptlist.add(i);
+        }
+      }
+      //TODO HARDCODE assume that we only have TWO Adaptation sets with different timescale, the timescale of the first Adaptation set is double the amount of the second one.
+      if (rendererIndex == 0 && !adaptlist.isEmpty())
+      {
+        if (selectedTrackIndices[rendererIndex] >= adaptlist.get(0) && selectedTrackIndices[rendererIndex] < adaptlist.get(1) && trackIndex >= adaptlist.get(1)) {
+          //double the current time
+          ratio = 2;
+        }
+        if (selectedTrackIndices[rendererIndex] >= adaptlist.get(1) && trackIndex >= adaptlist.get(0) && trackIndex < adaptlist.get(1)) {
+          //half the current time
+          ratio = 0.5;
+        }
+      }
+
       selectedTrackIndices[rendererIndex] = trackIndex;
-      internalPlayer.setRendererSelectedTrack(rendererIndex, trackIndex);
+      internalPlayer.setRendererSelectedTrack(rendererIndex, trackIndex, ratio);
     }
   }
 

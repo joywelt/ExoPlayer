@@ -151,9 +151,12 @@ import java.util.concurrent.atomic.AtomicInteger;
     handler.sendEmptyMessage(MSG_STOP);
   }
 
-  public void setRendererSelectedTrack(int rendererIndex, int trackIndex) {
+  public void setRendererSelectedTrack(int rendererIndex, int trackIndex, double ratio) {
     handler.obtainMessage(MSG_SET_RENDERER_SELECTED_TRACK, rendererIndex, trackIndex)
         .sendToTarget();
+
+    updatePositionUs();
+    seekTo((long) (positionUs * ratio/1000));
   }
 
   public void sendMessage(ExoPlayerComponent target, int messageType, Object message) {
