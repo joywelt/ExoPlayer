@@ -42,10 +42,10 @@
 
   </com.google.android.exoplayer.AspectRatioFrameLayout>
 
-  <LinearLayout
+  <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="#88000000"
+      android:background="#10000000"
       android:orientation="vertical">
 
     <TextView android:id="@+id/player_state_view"
@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:layout_alignParentBottom = "true"
         android:gravity="center">
 
       <Button android:id="@+id/video_controls"
@@ -111,21 +111,21 @@
           style="@style/DemoButton"/>
 
       <Button android:id="@+id/slow_button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="left"
+          android:layout_width="83dp"
+          android:layout_height="43dp"
+          android:layout_gravity="start"
           android:background="@drawable/slowbutton"
           android:onClick="gotoSlowMode"/>
 
       <Button android:id="@+id/normal_button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="right"
+          android:layout_width="83dp"
+          android:layout_height="43dp"
+          android:layout_gravity="end"
           android:background="@drawable/normalbutton"
           android:onClick="gotoNormalMode"/>
 
     </LinearLayout>
 
-  </LinearLayout>
+  </RelativeLayout>
 
 </FrameLayout>

@@ -486,8 +486,9 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
     if (track_index < track_count/2) {
       //select the next "auto" (adaptive) entry
       player.setSelectedTrack(DemoPlayer.TYPE_VIDEO, track_count/2);
-      player.seekTo(player.getCurrentPosition() - 10000); // milliseconds
     }
+    long position = player.getCurrentPosition() - 10000 > 0? player.getCurrentPosition() - 10000: 0;
+    player.seekTo(position); // milliseconds
   }
 
   public void gotoNormalMode(View v) {
@@ -648,7 +649,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
   }
 
   private void showControls() {
-    mediaController.show(0);
+//    mediaController.show(0);
     debugRootView.setVisibility(View.VISIBLE);
   }
 
