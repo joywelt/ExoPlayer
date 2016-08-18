@@ -48,7 +48,7 @@ import java.util.Locale;
 
   public static final Sample[] test = new Sample[] {
           new Sample("combined",
-                  "http://localhost:8080/bf_1_0/MultiRate_combined.mpd", Util.TYPE_DASH),
+                  "http://10.4.247.10/ExoPlayer/bf_1_0/MultiRate_combined.mpd", Util.TYPE_DASH),
   };
 
 //  public static final Sample[] YOUTUBE_DASH_MP4 = new Sample[]{
