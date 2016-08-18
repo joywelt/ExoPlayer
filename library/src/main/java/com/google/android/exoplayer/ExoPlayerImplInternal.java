@@ -241,8 +241,9 @@ import java.util.concurrent.atomic.AtomicInteger;
       }
     } catch (ExoPlaybackException e) {
       Log.e(TAG, "Internal track renderer error.", e);
-      eventHandler.obtainMessage(MSG_ERROR, e).sendToTarget();
-      stopInternal();
+//      eventHandler.obtainMessage(MSG_ERROR, e).sendToTarget();
+//      stopInternal();
+      seekTo(0);
       return true;
     } catch (RuntimeException e) {
       Log.e(TAG, "Internal runtime error.", e);
@@ -467,8 +468,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
     if (allRenderersEnded
         && (durationUs == TrackRenderer.UNKNOWN_TIME_US || durationUs <= positionUs)) {
-      setState(ExoPlayer.STATE_ENDED);
-      stopRenderers();
+//      setState(ExoPlayer.STATE_ENDED);
+//      stopRenderers();
+      seekTo(0);
     } else if (state == ExoPlayer.STATE_BUFFERING && allRenderersReadyOrEnded) {
       setState(ExoPlayer.STATE_READY);
       if (playWhenReady) {

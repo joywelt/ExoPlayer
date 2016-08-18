@@ -145,7 +145,8 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
       @Override
       public boolean onTouch(View view, MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-          toggleControlsVisibility();
+//          toggleControlsVisibility();
+          toggleCustomVisibility();
         } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
           view.performClick();
         }
@@ -642,6 +643,14 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
   private void toggleControlsVisibility()  {
     if (mediaController.isShowing()) {
       mediaController.hide();
+      debugRootView.setVisibility(View.GONE);
+    } else {
+      showControls();
+    }
+  }
+
+  private void toggleCustomVisibility()  {
+    if (debugRootView.getVisibility() == View.VISIBLE) {
       debugRootView.setVisibility(View.GONE);
     } else {
       showControls();
