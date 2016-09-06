@@ -42,7 +42,7 @@ public class AddPreference extends PreferenceActivity implements SharedPreferenc
         if(f.exists() && !f.isDirectory()) {
             try {
                 String cast = newActivity.new MyAsyncTask().execute("http://localhost:8080/Route_Receiver/Receiver_App/loadRcvConfig.php", "", "").get();
-                editor.putBoolean("unicastEnabled",cast.equals("2"));
+                editor.putBoolean("unicastEnabled",cast.equals("1"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -62,7 +62,7 @@ public class AddPreference extends PreferenceActivity implements SharedPreferenc
         }
         else if(key.equals("unicastEnabled")) {
             try {
-                newActivity.new MyAsyncTask().execute("http://localhost:8080/Route_Receiver/Receiver_App/saveRcvConfig.php", "cast", sharedPreferences.getBoolean(key,false)?"2":"1").get();
+                newActivity.new MyAsyncTask().execute("http://localhost:8080/Route_Receiver/Receiver_App/saveRcvConfig.php", "cast", sharedPreferences.getBoolean(key,false)?"1":"2").get();
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -107,7 +107,7 @@ public interface HttpDataSource extends UriDataSource {
 
     public InvalidResponseCodeException(int responseCode, Map<String, List<String>> headerFields,
         DataSpec dataSpec) {
-      super("Response code: " + responseCode, dataSpec);
+      super("Response code: " + responseCode + ", URI: " + dataSpec.uri.toString(), dataSpec);
       this.responseCode = responseCode;
       this.headerFields = headerFields;
     }

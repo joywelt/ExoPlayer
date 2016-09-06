@@ -231,7 +231,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
         }
         shutterView.setVisibility(View.VISIBLE);
         try {
-            String str_result = new MyAsyncTask().execute("http://localhost:8080/Route_Receiver/Receiver_App/Cleanup.php", "", "").get();
+            String str_result = new MyAsyncTask().execute("http://localhost:8080/Route_Receiver/Receiver_App/Killfute.php", "", "").get();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -335,11 +335,11 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
     private void preparePlayer(boolean playWhenReady) {
 
         try {
-            Toast.makeText(getApplicationContext(), "Please wait...", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Please wait...", Toast.LENGTH_LONG).show();
             Intent intent = getIntent();
             String channnel_num = intent.getStringExtra(CHANNEL_NUM);
             String str_result= new MyAsyncTask().execute("http://localhost:8080/Route_Receiver/Receiver_App/Process.php", "channel", channnel_num).get();
-            Toast.makeText(getApplicationContext(), "Result is: " + str_result, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Result is: " + str_result, Toast.LENGTH_LONG).show();
         }catch (Exception e) {
             e.printStackTrace();
         }
