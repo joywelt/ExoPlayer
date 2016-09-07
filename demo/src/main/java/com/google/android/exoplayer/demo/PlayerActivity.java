@@ -387,7 +387,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
     @Override
     public void onStateChanged(boolean playWhenReady, int playbackState) {
         if (playbackState == ExoPlayer.STATE_ENDED) {
-            showControls();
+//            showControls();
         }
         String text = "playWhenReady=" + playWhenReady + ", playbackState=";
         switch(playbackState) {
@@ -448,7 +448,8 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
         }
         playerNeedsPrepare = true;
         updateButtonVisibilities();
-        showControls();
+//        showControls();
+        preparePlayer(true);
     }
 
     @Override
@@ -617,7 +618,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
             mediaController.hide();
             debugRootView.setVisibility(View.GONE);
         } else {
-            showControls();
+//            showControls();
         }
     }
 

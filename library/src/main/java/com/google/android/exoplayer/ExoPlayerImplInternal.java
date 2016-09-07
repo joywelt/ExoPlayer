@@ -238,8 +238,9 @@ import java.util.concurrent.atomic.AtomicInteger;
       }
     } catch (ExoPlaybackException e) {
       Log.e(TAG, "Internal track renderer error.", e);
-      eventHandler.obtainMessage(MSG_ERROR, e).sendToTarget();
-      stopInternal();
+      seekTo(0);
+//      eventHandler.obtainMessage(MSG_ERROR, e).sendToTarget();
+//      stopInternal();
       return true;
     } catch (RuntimeException e) {
       Log.e(TAG, "Internal runtime error.", e);
