@@ -16,21 +16,25 @@
 package com.google.android.exoplayer.demo;
 
 import com.google.android.exoplayer.demo.Samples.Sample;
+import com.google.android.exoplayer.util.Util;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -90,9 +94,31 @@ public class SampleChooserActivity extends Activity {
     button1.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View arg0) {
-        onSampleSelected(Samples.test[0]);
+        String urlStr = readFromSD();//readFromFile(getApplicationContext());
+        Sample test = new Sample("combined",urlStr, Util.TYPE_DASH);
+        onSampleSelected(test);
       }
     });
+  }
+
+  private String readFromSD() {
+
+    StringBuilder text = new StringBuilder();
+    try {
+      File sdcard = Environment.getExternalStorageDirectory();
+      File file = new File(sdcard,"config.txt");
+
+      BufferedReader br = new BufferedReader(new FileReader(file));
+      String line;
+      while ((line = br.readLine()) != null) {
+        text.append(line);
+      }
+      br.close() ;
+    }catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return text.toString();
   }
 
   private void onSampleSelected(Sample sample) {
